@@ -1,26 +1,25 @@
 // --- CONFIGURAÇÃO DO CONTADOR ---
-const startDate = new Date(2024, 1, 14, 23, 30, 0); 
+const startDate = new Date(2025, 1, 14, 23, 30, 0); 
 // --- FIM DA CONFIGURAÇÃO  ---
 
 // --- CONFIGURAÇÃO DAS IMAGENS DO CARROSSEL ---
-const images = [
-    'images/abraco.jpg',
-    'images/domingo.jpg',
-    'images/festa1.jpg',
-    'images/festa2.jpg', 
-    'images/igreja.jpg',
-    'images/jantar.jpg',
-    'images/lagoa1.jpg',
-    'images/lagoa2.jpg',
-    'images/pastel.jpg',
-    'images/pastelSorriso.jpg',
-    'images/pedido.jpg'
+const mediaItems = [
+    { type: 'image', src: 'images/abraco.jpg', duration: 5000 },
+    { type: 'image', src: 'images/domingo.jpg', duration: 5000 },
+    { type: 'image', src: 'images/festa1.jpg', duration: 5000 },
+    { type: 'image', src: 'images/festa2.jpg', duration: 5000 }, 
+    { type: 'image', src: 'images/igreja.jpg', duration: 5000 },
+    { type: 'image', src: 'images/jantar.jpg', duration: 5000 },
+    { type: 'image', src: 'images/lagoa1.jpg', duration: 5000 },
+    { type: 'image', src: 'images/lagoa2.jpg', duration: 5000 },
+    { type: 'image', src: 'images/pastel.jpg', duration: 5000 },
+    { type: 'image', src: 'images/pastelSorriso.jpg', duration: 5000 },
+    { type: 'image', src: 'images/pedido.jpg', duration: 5000 }
 ];
-// --- CONFIGURAÇÃO DO TEMPO DE CADA IMAGEM ---
-const slideshowIntervalTime = 3000; 
-// --- FIM DA CONFIGURAÇÃO DO CARROSSEL ---
+// --- FIM DA CONFIGURAÇÃO DE MÍDIA ---
 
-// --- Código do Contador ---
+
+// --- Código do Contador (Permanece o mesmo) ---
 function updateCountdown() {
     const now = new Date();
     const diff = now.getTime() - startDate.getTime();
@@ -48,40 +47,61 @@ function updateCountdown() {
     document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
 }
 
-// --- Código do Carrossel de Fotos ---
-let currentImageIndex = 0;
-const slideshowImage = document.getElementById('slideshow-image');
+// --- Código do Carrossel de Mídia (Fotos) ---
+let currentMediaIndex = 0;
+let slideshowTimer;
 
-function changeImage() {
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-    slideshowImage.src = images[currentImageIndex];
+function showMedia(index) {
+    const mediaContent = document.getElementById('media-content');
+    const item = mediaItems[index];
+
+    mediaContent.innerHTML = '';
+    clearTimeout(slideshowTimer);
+
+    if (item.type === 'image') {
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = 'Foto do Casal'; 
+        mediaContent.appendChild(img);
+        slideshowTimer = setTimeout(nextMedia, item.duration);
+    }
+    // Se você não for usar vídeos, pode remover a parte 'else if (item.type === 'video')'
+    // Se for usar, mantenha e configure corretamente.
 }
 
-// --- Código para o botão "Tocar Música" (Ativado e Configurado para MP3) ---
-document.addEventListener('DOMContentLoaded', () => {
-    const playMusicBtn = document.getElementById('playMusicBtn');
-    const myAudio = document.getElementById('myAudio'); // Pega o elemento de áudio HTML5
+function nextMedia() {
+    currentMediaIndex = (currentMediaIndex + 1) % mediaItems.length;
+    showMedia(currentMediaIndex);
+}
 
-    if (playMusicBtn && myAudio) { // Verifica se ambos os elementos foram encontrados no HTML
-        playMusicBtn.addEventListener('click', () => {
-            myAudio.play() // Tenta reproduzir o áudio
-                .then(() => {
-                    // Áudio reproduzido com sucesso
-                    console.log('Música tocando!');
-                    // Opcional: Esconde o botão após o clique para indicar que a música está tocando
-                    playMusicBtn.style.display = 'none'; 
-                    // myAudio.controls = false; // Se quiser esconder os controles do player HTML5 após o play
-                })
-                .catch(error => {
-                    // Erro na reprodução (geralmente por bloqueio de autoplay sem interação, ou erro de carregamento)
-                    console.error('Erro ao tentar tocar a música:', error);
-                    alert('Não foi possível tocar a música automaticamente. Por favor, interaja mais com a página ou verifique se o arquivo de áudio está acessível.');
-                    // Em caso de falha, podemos mostrar os controles do player HTML5 para que o usuário tente manualmente
-                    myAudio.controls = true; // Mostra os controles nativos do HTML5 para o usuário tentar dar play
-                    playMusicBtn.style.display = 'none'; // Esconde o botão personalizado
+// --- Código para o botão "Desmutar Música" ---
+document.addEventListener('DOMContentLoaded', () => {
+    const unmuteMusicBtn = document.getElementById('unmuteMusicBtn');
+    const myAudio = document.getElementById('myAudio'); 
+
+    // Tentar tocar a música assim que a página carregar (mutada)
+    // Embora tenhamos 'autoplay' no HTML, chamar .play() aqui pode ser um fallback
+    // para garantir que ela realmente comece a tocar mutada em alguns navegadores.
+    myAudio.play()
+        .then(() => {
+            console.log('Música iniciada mutada automaticamente.');
+            // Se o botão de desmutar for clicado, remove o mute
+            if (unmuteMusicBtn) {
+                unmuteMusicBtn.addEventListener('click', () => {
+                    myAudio.muted = false; // Desmuta o áudio
+                    console.log('Música desmutada!');
+                    unmuteMusicBtn.style.display = 'none'; // Esconde o botão após desmutar
                 });
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao tentar iniciar música mutada automaticamente:', error);
+            // Se autoplay mutado falhar, pode ser necessário mostrar o botão de desmutar/play
+            // e talvez até os controles nativos do áudio.
+            if (unmuteMusicBtn) {
+                unmuteMusicBtn.style.display = 'block'; // Garante que o botão apareça
+            }
         });
-    }
 });
 
 
@@ -90,5 +110,5 @@ document.addEventListener('DOMContentLoaded', () => {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Inicia o carrossel
-setInterval(changeImage, slideshowIntervalTime);
+// Inicia o carrossel (mostra a primeira mídia e então o timer começa)
+showMedia(currentMediaIndex);

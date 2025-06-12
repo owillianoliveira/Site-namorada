@@ -8,8 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="image-container">
-            <img id="slideshow-image" src="images/pedido.jpg" alt="Foto do Casal"> 
+        <div class="media-container"> 
+            <div id="media-content">
+                <img id="slideshow-image" src="images/pedido.jpg" alt="Foto do Casal"> 
+            </div>
         </div>
 
         <div class="info-container">
@@ -31,9 +33,9 @@
                 <p>Aqui um espaço para um texto especial para você, meu amor! Você pode escrever algo emocionante aqui.</p> 
             </div>
 
-            <button id="playMusicBtn" style="margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Tocar Música</button>
+            <button id="unmuteMusicBtn" style="margin-top: 20px; padding: 10px 20px; background-color: #ff69b4; color: white; border: none; border-radius: 5px; cursor: pointer;">Ligar Som da Música</button>
         
-            <audio id="myAudio" loop preload="auto">
+            <audio id="myAudio" loop autoplay muted preload="auto">
                 <source src="audio/Modo Absurdo.mp3" type="audio/mpeg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
