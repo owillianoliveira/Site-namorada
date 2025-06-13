@@ -30,8 +30,9 @@ body {
     height: auto;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    object-fit: cover;
+    object-fit: cover; /* Mantido 'cover' para que as fotos preencham o espaço */
     max-height: 400px; /* Limita a altura das fotos em telas pequenas */
+    /* Se você quiser 'contain' e barras pretas, mude 'cover' para 'contain' e adicione 'background-color: #000;' aqui */
 }
 
 .info-container {
@@ -42,7 +43,8 @@ body {
 .info-container h2 {
     color: #ff69b4; /* Rosa */
     margin-top: 0;
-    margin-bottom: 15px;
+    /* CORRIGIDO: Esta é a única regra de margin-bottom para h2 */
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
 }
 
 #countdown {
@@ -52,6 +54,11 @@ body {
 #countdown p {
     font-size: 1em;
     margin: 5px 0;
+}
+
+/* Espaçamento para o texto introdutório do contador */
+.intro-text-countdown {
+    margin-bottom: 10px; /* Adiciona um espaço abaixo do parágrafo antes dos números do contador */
 }
 
 #countdown span {
@@ -69,19 +76,6 @@ body {
     font-size: 0.9em;
     color: #ccc;
 }
-
-.info-container h2 {
-    color: #ff69b4; /* Rosa */
-    margin-top: 0;
-    margin-bottom: 20px; /* Adicionado um margin-bottom para espaçar do conteúdo abaixo */
-}
-
-/* Espaçamento para o texto introdutório do contador */
-.intro-text-countdown {
-    margin-bottom: 10px; /* Adiciona um espaço abaixo do parágrafo antes dos números do contador */
-}
-
-/* ... restante do seu CSS ... */
 
 #myAudio {
     display: none; /* Mantém o player de áudio HTML5 nativo escondido */
@@ -112,11 +106,12 @@ body {
 
 /* Estilos para a imagem PNG de play dentro do botão */
 .play-icon {
-    /* ATENÇÃO: Substitua 'play_icon.png' pelo nome real do seu arquivo PNG! */
     width: 32px; /* Tamanho da imagem do ícone. Ajuste conforme necessário! */
     height: 32px;
     display: block; /* Garante que a imagem se ajuste bem */
     object-fit: contain; /* Garante que a imagem inteira seja visível dentro do espaço */
+    /* Se a imagem PNG for preta e você quiser ela branca, adicione: */
+    /* filter: invert(100%); */
 }
 
 
@@ -137,8 +132,9 @@ body {
     .image-container img {
         border-radius: 10px 0 0 10px;
         height: 100%;
-        object-fit: cover;
+        object-fit: cover; /* MANTIDO 'cover' aqui também */
         max-height: none;
+        /* Se usar 'contain', adicione background-color: #000; aqui */
     }
 
     .info-container {
