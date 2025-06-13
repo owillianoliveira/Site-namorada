@@ -22,29 +22,40 @@ body {
 
 .image-container {
     width: 100%;
+    position: relative;
+    padding-top: 75%; /* Proporção 4:3 para o container da imagem em telas menores */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
 }
 
 .image-container img {
-    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    display: block;
+    object-fit: cover; /* Mantido 'cover' para que as fotos preencham o espaço */
+    border-radius: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    object-fit: cover; /* Mantido 'cover' para que as fotos preencham o espaço */
-    max-height: 400px; /* Limita a altura das fotos em telas pequenas */
-    /* Se você quiser 'contain' e barras pretas, mude 'cover' para 'contain' e adicione 'background-color: #000;' aqui */
 }
 
 .info-container {
     padding: 20px;
-    text-align: center;
+    text-align: center; /* JÁ ESTÁ OK: Centraliza o texto e elementos inline */
+    /* NOVO: Adiciona display flex e justifica para centralizar elementos block como o botão */
+    display: flex;
+    flex-direction: column; /* Organiza os itens verticalmente */
+    align-items: center; /* CENTRALIZA OS ITENS (incluindo o botão) horizontalmente no contêiner flex */
+    justify-content: flex-start; /* Alinha no topo verticalmente (pode ser 'center' se preferir tudo centralizado) */
 }
 
 .info-container h2 {
     color: #ff69b4; /* Rosa */
     margin-top: 0;
-    /* CORRIGIDO: Esta é a única regra de margin-bottom para h2 */
-    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    margin-bottom: 20px;
 }
 
 #countdown {
@@ -56,9 +67,8 @@ body {
     margin: 5px 0;
 }
 
-/* Espaçamento para o texto introdutório do contador */
 .intro-text-countdown {
-    margin-bottom: 10px; /* Adiciona um espaço abaixo do parágrafo antes dos números do contador */
+    margin-bottom: 10px;
 }
 
 #countdown span {
@@ -75,43 +85,43 @@ body {
     margin-top: 15px;
     font-size: 0.9em;
     color: #ccc;
+    width: 100%; /* Garantir que a área de texto ocupe toda a largura disponível */
+    box-sizing: border-box; /* Inclui padding na largura total */
 }
 
 #myAudio {
-    display: none; /* Mantém o player de áudio HTML5 nativo escondido */
+    display: none;
 }
 
-/* Estilos para o botão de Play/Tocar Música com a imagem PNG */
 .music-button {
-    display: flex; /* Para alinhar o ícone no centro */
-    align-items: center; /* Alinha verticalmente */
-    justify-content: center; /* Alinha horizontalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     margin-top: 20px;
-    padding: 10px; /* Reduzi o padding para a imagem preencher melhor */
-    background-color: #ff69b4; /* Cor rosa que combina com a paleta */
+    padding: 10px;
+    background-color: #ff69b4;
     border: none;
-    border-radius: 50%; /* Faz o botão ser redondo */
+    border-radius: 50%;
     cursor: pointer;
-    width: 60px; /* Largura para o botão redondo */
-    height: 60px; /* Altura para o botão redondo */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra para dar destaque */
-    transition: background-color 0.3s ease, transform 0.1s ease; /* Transição suave ao passar o mouse */
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    /* Remover 'margin: 0 auto;' daqui pois 'align-items: center' no pai já fará o trabalho */
 }
 
 .music-button:hover {
-    background-color: #e655a0; /* Um tom de rosa um pouco mais escuro ao passar o mouse */
-    transform: scale(1.05); /* Pequeno zoom no hover */
+    background-color: #e655a0;
+    transform: scale(1.05);
 }
 
-/* Estilos para a imagem PNG de play dentro do botão */
 .play-icon {
-    width: 32px; /* Tamanho da imagem do ícone. Ajuste conforme necessário! */
+    width: 32px;
     height: 32px;
-    display: block; /* Garante que a imagem se ajuste bem */
-    object-fit: contain; /* Garante que a imagem inteira seja visível dentro do espaço */
-    /* Se a imagem PNG for preta e você quiser ela branca, adicione: */
-    /* filter: invert(100%); */
+    display: block;
+    object-fit: contain;
+    /* filter: invert(100%); Se a imagem PNG for preta e você quiser ela branca */
 }
 
 
@@ -123,26 +133,26 @@ body {
         flex-direction: row;
     }
 
+    /* Ajustes para telas maiores */
     .image-container {
         width: 50%;
+        padding-top: 0;
+        height: auto;
         border-radius: 10px 0 0 10px;
-        overflow: hidden;
     }
 
     .image-container img {
+        position: static;
         border-radius: 10px 0 0 10px;
         height: 100%;
-        object-fit: cover; /* MANTIDO 'cover' aqui também */
+        object-fit: cover;
         max-height: none;
-        /* Se usar 'contain', adicione background-color: #000; aqui */
     }
 
     .info-container {
         width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        /* Manter display:flex, flex-direction: column e align-items: center para centralização aqui */
+        justify-content: center; /* Centraliza verticalmente no contêiner flex */
         text-align: center;
         padding: 15px;
     }
@@ -165,11 +175,11 @@ body {
     }
 
     .music-button {
-        width: 70px; /* Aumenta um pouco o botão em telas maiores */
+        width: 70px;
         height: 70px;
     }
     .play-icon {
-        width: 38px; /* Aumenta um pouco o ícone em telas maiores */
+        width: 38px;
         height: 38px;
     }
 }

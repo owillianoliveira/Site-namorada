@@ -1,20 +1,19 @@
 // --- CONFIGURAÇÃO IMPORTANTE ---
-const startDate = new Date(2025, 1, 14, 23, 30, 0);
+const startDate = new Date(2025, 1, 14, 23, 30, 0); // Ajuste esta data para o início do seu namoro!
 // --- FIM DA CONFIGURAÇÃO DO CONTADOR ---
 
 // --- CONFIGURAÇÃO DAS IMAGENS PARA O CARROSSEL ---
 const images = [
-    'images/abraco.jpg', 
+    'images/abraco.jpg',
     'images/domingo.jpg',
     'images/festa1.jpg',
-    'images/festa2.jpg',
+    'images/festa2.jpg', 
     'images/igreja.jpg',
     'images/jantar.jpg',
     'images/lagoa1.jpg',
     'images/lagoa2.jpg',
     'images/pastel.jpg',
     'images/pastelSorriso.jpg',
-    'images/pedido.jpg',
     'images/beijinho.jpg',
     'images/elevador.jpg',
     'images/filme1.jpg',
@@ -23,7 +22,6 @@ const images = [
     'images/chiquinho.jpg',
     'images/churros.jpg',
     'images/betania.jpg',
-    'images/melina.jpg',
     'images/chiquinho2.jpg',
     'images/carro.jpg',
     'images/linda.jpg',
@@ -31,7 +29,6 @@ const images = [
     'images/vo.jpg',
     'images/vô.jpg',
     'images/abraço.jpg'
-
 ];
 const slideshowIntervalTime = 5000; // Tempo em milissegundos para cada foto (5000ms = 5 segundos)
 // --- FIM DA CONFIGURAÇÃO DO CARROSSEL ---
@@ -85,6 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(() => {
                     console.log('Música tocando!');
                     playMusicBtn.style.display = 'none';
+
+                    // --- NOVO: Inicializa o carrossel AQUI, após a música começar ---
+                    if (images.length > 0) {
+                        slideshowImage.src = images[currentImageIndex]; // Define a primeira imagem
+                        console.log('Carrossel iniciado com imagem inicial: ' + images[currentImageIndex]);
+                        setInterval(changeImage, slideshowIntervalTime); // Inicia a troca automática
+                    } else {
+                        console.warn('Nenhuma imagem configurada para o carrossel.');
+                    }
+                    // --- FIM DA NOVA LÓGICA ---
+
                 })
                 .catch(error => {
                     console.error('Erro ao tentar tocar a música:', error);
@@ -100,16 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // --- Inicialização de Funções ---
-// Inicia o contador
+// O contador ainda começa imediatamente na página
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Inicia o carrossel (mostra a primeira imagem e então o timer começa a trocar)
+// REMOVIDO: A inicialização do carrossel NÃO acontece mais aqui no carregamento da página.
+// Agora ela acontece DENTRO do evento de clique do botão playMusicBtn.
+/*
 if (images.length > 0) {
-    slideshowImage.src = images[currentImageIndex]; // Define a primeira imagem ao carregar a página
-    console.log('Imagem inicial exibida: ' + images[currentImageIndex]); // Depuração
-
-    setInterval(changeImage, slideshowIntervalTime); // Inicia a troca automática das imagens
+    slideshowImage.src = images[currentImageIndex];
+    console.log('Imagem inicial exibida: ' + images[currentImageIndex]);
+    setInterval(changeImage, slideshowIntervalTime);
 } else {
     console.warn('Nenhuma imagem configurada no array images.');
 }
+*/
