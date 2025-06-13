@@ -1,25 +1,42 @@
-// --- CONFIGURAÇÃO DO CONTADOR ---
-const startDate = new Date(2025, 1, 14, 23, 30, 0); 
-// --- FIM DA CONFIGURAÇÃO  ---
+// --- CONFIGURAÇÃO IMPORTANTE ---
+const startDate = new Date(2025, 1, 14, 23, 30, 0);
+// --- FIM DA CONFIGURAÇÃO DO CONTADOR ---
 
-// --- CONFIGURAÇÃO DAS IMAGENS DO CARROSSEL ---
-const mediaItems = [
-    { type: 'image', src: 'images/abraco.jpg', duration: 5000 },
-    { type: 'image', src: 'images/domingo.jpg', duration: 5000 },
-    { type: 'image', src: 'images/festa1.jpg', duration: 5000 },
-    { type: 'image', src: 'images/festa2.jpg', duration: 5000 }, 
-    { type: 'image', src: 'images/igreja.jpg', duration: 5000 },
-    { type: 'image', src: 'images/jantar.jpg', duration: 5000 },
-    { type: 'image', src: 'images/lagoa1.jpg', duration: 5000 },
-    { type: 'image', src: 'images/lagoa2.jpg', duration: 5000 },
-    { type: 'image', src: 'images/pastel.jpg', duration: 5000 },
-    { type: 'image', src: 'images/pastelSorriso.jpg', duration: 5000 },
-    { type: 'image', src: 'images/pedido.jpg', duration: 5000 }
+// --- CONFIGURAÇÃO DAS IMAGENS PARA O CARROSSEL ---
+const images = [
+    'images/abraco.jpg', 
+    'images/domingo.jpg',
+    'images/festa1.jpg',
+    'images/festa2.jpg',
+    'images/igreja.jpg',
+    'images/jantar.jpg',
+    'images/lagoa1.jpg',
+    'images/lagoa2.jpg',
+    'images/pastel.jpg',
+    'images/pastelSorriso.jpg',
+    'images/pedido.jpg',
+    'images/beijinho.jpg',
+    'images/elevador.jpg',
+    'images/filme1.jpg',
+    'images/lingua.jpg',
+    'images/lingua2.jpg',
+    'images/chiquinho.jpg',
+    'images/churros.jpg',
+    'images/betania.jpg',
+    'images/melina.jpg',
+    'images/chiquinho2.jpg',
+    'images/carro.jpg',
+    'images/linda.jpg',
+    'images/bk.jpg',
+    'images/vo.jpg',
+    'images/vô.jpg',
+    'images/abraço.jpg'
+
 ];
-// --- FIM DA CONFIGURAÇÃO DE MÍDIA ---
+const slideshowIntervalTime = 5000; // Tempo em milissegundos para cada foto (5000ms = 5 segundos)
+// --- FIM DA CONFIGURAÇÃO DO CARROSSEL ---
 
-
-// --- Código do Contador (Permanece o mesmo) ---
+// --- Código do Contador ---
 function updateCountdown() {
     const now = new Date();
     const diff = now.getTime() - startDate.getTime();
@@ -47,61 +64,38 @@ function updateCountdown() {
     document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
 }
 
-// --- Código do Carrossel de Mídia (Fotos) ---
-let currentMediaIndex = 0;
-let slideshowTimer;
+// --- Código do Carrossel de Fotos ---
+let currentImageIndex = 0;
+const slideshowImage = document.getElementById('slideshow-image');
 
-function showMedia(index) {
-    const mediaContent = document.getElementById('media-content');
-    const item = mediaItems[index];
-
-    mediaContent.innerHTML = '';
-    clearTimeout(slideshowTimer);
-
-    if (item.type === 'image') {
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.alt = 'Foto do Casal'; 
-        mediaContent.appendChild(img);
-        slideshowTimer = setTimeout(nextMedia, item.duration);
-    }
-    // Se você não for usar vídeos, pode remover a parte 'else if (item.type === 'video')'
-    // Se for usar, mantenha e configure corretamente.
+function changeImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    slideshowImage.src = images[currentImageIndex];
+    console.log('Exibindo imagem: ' + images[currentImageIndex]); // Depuração
 }
 
-function nextMedia() {
-    currentMediaIndex = (currentMediaIndex + 1) % mediaItems.length;
-    showMedia(currentMediaIndex);
-}
-
-// --- Código para o botão "Desmutar Música" ---
+// --- Código para o botão "Tocar Música" ---
 document.addEventListener('DOMContentLoaded', () => {
-    const unmuteMusicBtn = document.getElementById('unmuteMusicBtn');
-    const myAudio = document.getElementById('myAudio'); 
+    const playMusicBtn = document.getElementById('playMusicBtn');
+    const myAudio = document.getElementById('myAudio');
 
-    // Tentar tocar a música assim que a página carregar (mutada)
-    // Embora tenhamos 'autoplay' no HTML, chamar .play() aqui pode ser um fallback
-    // para garantir que ela realmente comece a tocar mutada em alguns navegadores.
-    myAudio.play()
-        .then(() => {
-            console.log('Música iniciada mutada automaticamente.');
-            // Se o botão de desmutar for clicado, remove o mute
-            if (unmuteMusicBtn) {
-                unmuteMusicBtn.addEventListener('click', () => {
-                    myAudio.muted = false; // Desmuta o áudio
-                    console.log('Música desmutada!');
-                    unmuteMusicBtn.style.display = 'none'; // Esconde o botão após desmutar
+    if (playMusicBtn && myAudio) {
+        playMusicBtn.addEventListener('click', () => {
+            myAudio.play()
+                .then(() => {
+                    console.log('Música tocando!');
+                    playMusicBtn.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Erro ao tentar tocar a música:', error);
+                    alert('Não foi possível tocar a música. Por favor, tente novamente ou verifique se o arquivo de áudio está acessível.');
+                    myAudio.controls = true; // Mostra os controles nativos do HTML5 para o usuário tentar dar play
+                    playMusicBtn.style.display = 'none'; // Esconde o botão personalizado
                 });
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao tentar iniciar música mutada automaticamente:', error);
-            // Se autoplay mutado falhar, pode ser necessário mostrar o botão de desmutar/play
-            // e talvez até os controles nativos do áudio.
-            if (unmuteMusicBtn) {
-                unmuteMusicBtn.style.display = 'block'; // Garante que o botão apareça
-            }
         });
+    } else {
+        console.error('Botão de Play (#playMusicBtn) ou elemento de áudio (#myAudio) não encontrado no HTML.');
+    }
 });
 
 
@@ -110,5 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Inicia o carrossel (mostra a primeira mídia e então o timer começa)
-showMedia(currentMediaIndex);
+// Inicia o carrossel (mostra a primeira imagem e então o timer começa a trocar)
+if (images.length > 0) {
+    slideshowImage.src = images[currentImageIndex]; // Define a primeira imagem ao carregar a página
+    console.log('Imagem inicial exibida: ' + images[currentImageIndex]); // Depuração
+
+    setInterval(changeImage, slideshowIntervalTime); // Inicia a troca automática das imagens
+} else {
+    console.warn('Nenhuma imagem configurada no array images.');
+}

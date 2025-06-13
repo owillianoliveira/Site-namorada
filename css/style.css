@@ -1,23 +1,23 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1e1e1e; /* Fundo escuro como na imagem */
+    background-color: #1e1e1e; /* Fundo escuro */
     color: #f8f8f8; /* Texto claro */
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Garante que o conteúdo ocupa toda a altura da tela */
+    min-height: 100vh;
 }
 
 .container {
     background-color: #333; /* Cor do container principal */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    overflow: hidden; /* Garante que a imagem arredondada não vaze */
-    width: 90%; /* Largura inicial para telas menores */
-    max-width: 500px; /* Largura máxima para telas maiores */
-    margin: 20px; /* Espaçamento externo */
+    overflow: hidden;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px;
 }
 
 .image-container {
@@ -25,12 +25,13 @@ body {
 }
 
 .image-container img {
-    display: block; /* Remove espaço extra abaixo da imagem */
+    display: block;
     width: 100%;
     height: auto;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    object-fit: cover; /* Adapta a imagem ao container mantendo a proporção */
+    object-fit: cover;
+    max-height: 400px; /* Limita a altura das fotos em telas pequenas */
 }
 
 .info-container {
@@ -69,10 +70,53 @@ body {
     color: #ccc;
 }
 
-/* Opcional: Para esconder o player de áudio se não quiser ele visível */
-/* Se você não quiser ver os controles, adicione esta regra */
+.info-container h2 {
+    color: #ff69b4; /* Rosa */
+    margin-top: 0;
+    margin-bottom: 20px; /* Adicionado um margin-bottom para espaçar do conteúdo abaixo */
+}
+
+/* Espaçamento para o texto introdutório do contador */
+.intro-text-countdown {
+    margin-bottom: 10px; /* Adiciona um espaço abaixo do parágrafo antes dos números do contador */
+}
+
+/* ... restante do seu CSS ... */
+
 #myAudio {
-    display: none; 
+    display: none; /* Mantém o player de áudio HTML5 nativo escondido */
+}
+
+/* Estilos para o botão de Play/Tocar Música com a imagem PNG */
+.music-button {
+    display: flex; /* Para alinhar o ícone no centro */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: center; /* Alinha horizontalmente */
+
+    margin-top: 20px;
+    padding: 10px; /* Reduzi o padding para a imagem preencher melhor */
+    background-color: #ff69b4; /* Cor rosa que combina com a paleta */
+    border: none;
+    border-radius: 50%; /* Faz o botão ser redondo */
+    cursor: pointer;
+    width: 60px; /* Largura para o botão redondo */
+    height: 60px; /* Altura para o botão redondo */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra para dar destaque */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Transição suave ao passar o mouse */
+}
+
+.music-button:hover {
+    background-color: #e655a0; /* Um tom de rosa um pouco mais escuro ao passar o mouse */
+    transform: scale(1.05); /* Pequeno zoom no hover */
+}
+
+/* Estilos para a imagem PNG de play dentro do botão */
+.play-icon {
+    /* ATENÇÃO: Substitua 'play_icon.png' pelo nome real do seu arquivo PNG! */
+    width: 32px; /* Tamanho da imagem do ícone. Ajuste conforme necessário! */
+    height: 32px;
+    display: block; /* Garante que a imagem se ajuste bem */
+    object-fit: contain; /* Garante que a imagem inteira seja visível dentro do espaço */
 }
 
 
@@ -81,7 +125,7 @@ body {
     .container {
         max-width: 700px;
         display: flex;
-        flex-direction: row; /* Coloca imagem e info lado a lado */
+        flex-direction: row;
     }
 
     .image-container {
@@ -94,6 +138,7 @@ body {
         border-radius: 10px 0 0 10px;
         height: 100%;
         object-fit: cover;
+        max-height: none;
     }
 
     .info-container {
@@ -122,6 +167,15 @@ body {
         margin-top: 20px;
         font-size: 1em;
     }
+
+    .music-button {
+        width: 70px; /* Aumenta um pouco o botão em telas maiores */
+        height: 70px;
+    }
+    .play-icon {
+        width: 38px; /* Aumenta um pouco o ícone em telas maiores */
+        height: 38px;
+    }
 }
 
 /* Media Query para telas ainda maiores (ex: desktops) */
@@ -144,89 +198,5 @@ body {
 
     .text-area {
         font-size: 1.1em;
-    }
-}
-
-/* ... SEU CSS EXISTENTE (body, .container, .info-container, #countdown, .text-area, etc.) ... */
-
-/* --- CSS para ocultar o player de áudio MP3 (se você adicionou) --- */
-#myAudio {
-    display: none; 
-}
-
-/* --- SEU BOTÃO DE DESMUTAR (se quiser algum estilo extra) --- */
-#unmuteMusicBtn {
-    /* Pode adicionar um estilo específico para o botão de desmutar se quiser */
-    z-index: 10;
-    position: relative; 
-}
-
-
-/* --- SEUS MEDIA QUERIES EXISTENTES --- */
-@media (min-width: 600px) {
-    /* ... regras de CSS para telas maiores ... */
-
-    .audio-container { /* Esta regra já estava no seu código CSS */
-        margin-top: 20px;
-    }
-}
-
-@media (min-width: 900px) {
-    /* ... regras de CSS para telas ainda maiores ... */
-}
-
-
-/* --- NOVAS REGRAS CSS PARA O CARROSSEL DE MÍDIA (COLE AQUI!) --- */
-
-.media-container { /* Renomeado de .image-container */
-    width: 100%;
-    /* Adiciona padding-top para manter a proporção 16:9 (para vídeos, mesmo que só tenha fotos, é bom ter a proporção definida) */
-    padding-top: 56.25%; /* Isso fará com que o container tenha uma proporção de vídeo 16:9 */
-    position: relative; /* Necessário para posicionar o conteúdo absoluto dentro */
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    overflow: hidden; /* Garante que o conteúdo arredondado não vaze */
-}
-
-#media-content { /* A nova div interna */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex; /* Para centralizar o conteúdo dentro */
-    justify-content: center;
-    align-items: center;
-}
-
-#media-content img { /* Estilo para as imagens dentro de media-content */
-    display: block;
-    width: 100%;
-    height: 100%; /* Ocupa a altura total do #media-content */
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-#media-content iframe { /* Estilo para os iframes de vídeo (se você decidir adicionar vídeos futuramente) */
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-/* REGRAS DO MEDIA QUERIES PARA O CONTAINER DE MÍDIA (MUITO IMPORTANTE!) */
-@media (min-width: 600px) {
-    .media-container { /* Ajusta para a proporção lado a lado */
-        width: 50%;
-        padding-top: 0; /* Remove o padding-top em telas maiores para que a altura seja controlada por height: 100% */
-        height: 100%; /* Ocupa a altura total do container flexível */
-        border-radius: 10px 0 0 10px;
-    }
-
-    #media-content img,
-    #media-content iframe {
-        border-radius: 10px 0 0 10px;
     }
 }

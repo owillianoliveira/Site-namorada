@@ -8,16 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="media-container"> 
-            <div id="media-content">
-                <img id="slideshow-image" src="images/pedido.jpg" alt="Foto do Casal"> 
-            </div>
+        <div class="image-container">
+            <img id="slideshow-image" src="images/pedido.jpg" alt="Foto do Casal">
         </div>
 
         <div class="info-container">
-            <h2>O amor da minha vida</h2>
+            <h2>Você é o meu amor para vida! </h2>
             <div id="countdown">
-                <p>Estamos juntos há:</p>
+                <p class="intro-text-countdown">Sou o homem mais feliz do mundo há exatos:</p> 
                 <p>
                     <span id="years">00</span> anos,
                     <span id="months">00</span> meses,
@@ -30,12 +28,33 @@
                 </p>
             </div>
             <div class="text-area">
-                <p>Aqui um espaço para um texto especial para você, meu amor! Você pode escrever algo emocionante aqui.</p> 
+                <p>Amor mesmo é quando a pessoa não muda você.
+Só te revela.
+Como se ela, sem querer, acendesse as luzes de um cômodo que você nem sabia que existia.
+
+Com você, não precisei forçar sorrisos, nem inventar versões mais leves de mim.
+Eu fui ficando…
+Fui ficando porque você é abrigo.
+E isso é raro.
+
+Você, que dizia não ser de carinho, hoje dorme parecendo um carrapatinho enquanto “assistimos” filme no colchão da sala.
+E eu?
+Eu que era silêncio, hoje transbordo só de te olhar.
+
+O amor que temos não precisa ser explicado.
+Só vivido.
+No riso bobo do café da manhã, no colo depois de um dia ruim, na cartinha que chega no meio do caos.
+
+Feliz Dia dos Namorados, meu dengo.
+Te amar é o que faz meu mundo ter sentido.
+E meu coração, finalmente, ter casa.</p>
             </div>
 
-            <button id="unmuteMusicBtn" style="margin-top: 20px; padding: 10px 20px; background-color: #ff69b4; color: white; border: none; border-radius: 5px; cursor: pointer;">Ligar Som da Música</button>
-        
-            <audio id="myAudio" loop autoplay muted preload="auto">
+            <button id="playMusicBtn" class="music-button">
+                <img src="images/play-238.png" alt="Ícone de Play" class="play-icon">
+            </button>
+
+            <audio id="myAudio" loop preload="auto">
                 <source src="audio/Modo Absurdo.mp3" type="audio/mpeg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
